@@ -1,2 +1,7 @@
-# sol-os
-SolanaOS is a pre-configured containerized environment for Solana development. Spin up a ready-to-use Solana node with dev tools, wallets, and utilities in a single command. No setup headaches, no “works on my machine” issues.
+# Solana Dev Environment Docker Image
+A prebuilt Solana development environment designed for quick setup and fast iteration.
+
+## Features
+- Rust toolchain (cargo) included  
+- Solana CLI installed  
+- Minimal, ready-to-use image for local Solana development
