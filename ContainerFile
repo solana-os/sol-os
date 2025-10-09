@@ -1,16 +1,16 @@
 FROM cgr.dev/chainguard/wolfi-base
 
 # Install dev tools
-RUN apk add --no-cache curl bash git build-base ca-certificates libudev pkgconf
+RUN apk add --no-cache curl bash git build-base ca-certificates libudev pkgconf nodejs
 
-# Install Rust and Solana
+# Install Solana and Anchor
 RUN set -euxo pipefail && \
-    curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain 1.73.0
-
-ENV PATH="/root/.cargo/bin:$PATH"
-
-RUN set -euxo pipefail && \
+    apk add --no-cache curl bash git build-base ca-certificates libudev pkgconf nodejs && \
+    curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain stable && \
+    export PATH="/root/.cargo/bin:$PATH" && \
     curl -sSfL https://release.anza.xyz/stable/install -o /tmp/install.sh && \
-    sh /tmp/install.sh
+    sh /tmp/install.sh && \
+    cargo install --git https://github.com/solana-foundation/anchor avm --force && \
+    avm install latest && avm use latest
 
 ENV PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
